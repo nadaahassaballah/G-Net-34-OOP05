@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Metrics;
+﻿using G_Net_34_OOP02.childs;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Threading;
 
@@ -36,9 +37,49 @@ namespace assigment_5
             //Look at the following code and determine the output.Explain why.
             //qa testing ,qa testing because its a shallcopy
             #endregion
- 
+
 
             #endregion
+
+            #region part2 
+            
+        Cinema cinema = new Cinema();
+        cinema.Open();
+
+            StandardTicket t1 = new StandardTicket("Inception", 80, 5);
+        VIPTicket t2 = new VIPTicket("Avengers", 200, true);
+        IMAXTicket t3 = new IMAXTicket("Dune", 130, true);
+
+        t1.Book();
+        t2.Book();
+        t3.Book();
+
+        cinema.AddTicket(t1);
+        cinema.AddTicket(t2);
+        cinema.AddTicket(t3);
+
+        cinema.PrintAll();
+
+        Console.WriteLine("\n--- Clone Test ---");
+
+        VIPTicket clone = (VIPTicket)t2.Clone();
+        clone.MovieName = "Interstellar";
+
+        Console.Write("Original : ");
+        t2.Print();
+
+        Console.Write("Clone    : ");
+        clone.Print();
+
+        Console.WriteLine("\n--- After Cancellation ---");
+        t1.Cancel();
+        t1.Print();
+
+        BookingHelper.PrintAll(new IPrintable[] { t1, t2, t3 });
+
+        cinema.Close();
+            #endregion
+
         }
     }
 }
